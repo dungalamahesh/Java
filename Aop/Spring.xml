@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd ">
+
+	<aop:aspectj-autoproxy />
+
+	<bean id="customer" class="com.aopspring.me.models.Customer">
+		<property name="name" value="Oren" />
+	</bean>
+
+
+	<bean id="manager" class="com.aopspring.me.models.Manager">
+		<property name="name" value="John" />
+	</bean>
+
+	<bean id="service" class="com.aopspring.me.service.Service"
+		autowire="byName" />
+	
+	<bean id="loginAscpect" class="com.aopspring.aspect.LoginAscpect" />
+	
+	<aop:config>
+		<aop:aspect id="LoginAscpect" ref="loginAscpect">
+			<aop:pointcut id="allgetters" expression="execution(* get*())" />
+			<aop:pointcut id="allsetters" expression="execution(* set*())" />
+			<aop:around method="aroundGetters" pointcut-ref="allgetters"/>
+			<aop:around method="aroundGetters" pointcut="execution(* set*(..))"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<context:component-scan base-package="com.aopspring.aspect" />
+	<context:annotation-config />
+
+</beans>

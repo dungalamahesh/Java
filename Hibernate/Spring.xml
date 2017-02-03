@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd ">
+
+	<aop:aspectj-autoproxy />
+
+	<bean id="officeAdress" class="com.tables.create.Adress">
+		<property name="city" value="Tel Aviv, ramamt aviv" />
+		<property name="state" value="Israel" />
+		<property name="street" value="Kafrisin 155" />
+	</bean>
+
+	<bean id="jobPostion1" class="com.tables.create.JobHistory">
+		<property name="jobName" value="MultiThreads" />
+		<property name="salary" value="20000" />
+	</bean>
+
+	<bean id="jobPostion2" class="com.tables.create.JobHistory">
+		<property name="jobName" value="topColJava" />
+		<property name="salary" value="25000" />
+	</bean>
+
+	<bean id="car1" class="com.tables.create.Vehicle">
+		<property name="vehicleName" value="Kadilak" />
+	</bean>
+
+	<bean id="car2" class="com.tables.create.Vehicle">
+		<property name="vehicleName" value="Mitsobishi" />
+	</bean>
+
+	<bean id="newUser" class="com.tables.create.UserInfo">
+		<property name="name" value="Liron" />
+		<property name="lastName" value="Kopel" />
+		<property name="officeAdress" ref="officeAdress" />
+		<property name="listOfJobs">
+			<list>
+				<ref bean="jobPostion1" />
+				<ref bean="jobPostion2" />
+			</list>
+		</property>
+		<property name="vechicle">
+			<list>
+				<ref bean="car1" />
+				<ref bean="car2" />
+			</list>
+		</property>
+	</bean>
+
+	<context:component-scan base-package="com.tables.create"/>
+	<context:annotation-config />
+
+</beans>
